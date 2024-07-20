@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Dahboard-Edit Post</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+
+<body onload="select_edit_selection_opt('{{my_obj.college}}', '{{my_obj.pgfor}}')">
+    <div class="dashboard_top_nav">
+        <div class="owner_nav_menu_btn" onclick="owner_nav_btn_clicked()"><i class='bx bx-menu'></i></div>
+    </div>
+    <!------------------>
+    <div class="owner_nav_content_wrapper">
+        <div class="owner_nav" id="owner_nav_id">
+            <a href="/home">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-home-alt-2'></i>
+                    Home
+                </div>
+            </a>
+
+            <a href="/dashboard">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-dashboard'></i>
+                    Dashboard
+                </div>
+            </a>
+
+            <a href="/add-post">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-image-add'></i>
+                    Add Post
+                </div>
+            </a>
+
+            <a href="/all-post">
+                <div class="owner_nav_link active_owner_nav_link">
+                    <i class='bx bx-border-all'></i>
+                    All Posts
+                </div>
+            </a>
+
+            <a href="/logout">
+                <div class="owner_nav_link_logout">Logout</div>
+            </a>
+        </div>
+
+        <div class="owner_content">
+            <!------------------------SECTION 1---------------------->
+            <div class="add_room_sec1">
+                <div class="add_room_sec1_content_wrapper">
+                    <div class="edit_post_file_direction_view">All Posts <span>></span> Edit post</div><br>
+                    <form action="" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <h2>Edit Room Details</h2>
+                        <!-- ----------------MESSAGES SECTION------------- -->
+                        {% if messages %}
+                        <ul class="messages" id="messages_ul_id">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                                <i class='bx bx-x' onclick="message_remove()"></i><br>{{ message }}
+                                </li>
+                                {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <!-- ----------------------------------------------- -->
+                        <label for="">Pg Name:<span>*</span></label><br>
+                        <input type="text" name="pgname" id="" required value="{{my_obj.name}}"><br>
+                        <label for="">Price:<span>*</span></label><br>
+                        <input type="number" name="pgprice" id="" value="{{my_obj.price}}" required><br>
+                        <label for="">PG for:<span>*</span></label><br>
+                        <select name="pgfor" id="pgfor_select_id">
+                            <option value="">Select an Option</option>
+                            <option value="boy">Boys</option>
+                            <option value="girl">Girls</option>
+                            <option value="both">Both Boys & Girls</option>
+                        </select><br>
+                        <label for="">Near to college:<span>*</span></label><br>
+                        <select onload class="add-room-select" name="pgcollege" id="add-room-select_id" required>
+                            <option value="">Select an option</option>
+                            <option value="Asansol Engineering College (AEC)">Asansol Engineering College (AEC)</option>
+                            <option value="BC Roy Engineering College (BCREC)">BC Roy Engineering College (BCREC)"</option>
+                            <option value="Techno India Saltlake">Techno India Saltlake</option>
+                            <!-- --------------------- -->
+                            <option value="Indian Institute of Technology Bombay (IIT Bombay)">Indian Institute of
+                                Technology Bombay (IIT Bombay)</option>
+
+                            <option value="Indian Institute of Technology Madras (IIT Madras)">Indian Institute of
+                                Technology Madras (IIT Madras)</option>
+
+                            <option value="Indian Institute of Technology Delhi (IIT Delhi)">Indian Institute of
+                                Technology Delhi (IIT Delhi)</option>
+
+                            <option value="Indian Institute of Management Ahmedabad (IIM Ahmedabad)">Indian Institute of
+                                Management Ahmedabad (IIM Ahmedabad)</option>
+
+                            <option value="Indian Institute of Management Bangalore (IIM Bangalore)">Indian Institute of
+                                Management Bangalore (IIM Bangalore)</option>
+
+                            <option value="Indian Institute of Management Calcutta (IIM Calcutta)">Indian Institute of
+                                Management Calcutta (IIM Calcutta)</option>
+
+                            <option value="St. Xavier's College">St. Xavier's College</option>
+                            <option value="Loyola College">Loyola College</option>
+                            <option value="Miranda House">Miranda House</option>
+                            <option value="Presidency College">Presidency College</option>
+                            <option value="St. Joseph's College">St. Joseph's College</option>
+                            <option value="Ramjas College">Ramjas College</option>
+                            <option value="Fergusson College">Fergusson College</option>
+                            <option value="St. Stephen's College">St. Stephen's College</option>
+                            <option value="Christ University">Christ University</option>
+                            <option value="Hansraj College">Hansraj College</option>
+                            <option value="Madras Christian College (MCC)">Madras Christian College (MCC)</option>
+                            <option value="Lady Shri Ram College for Women">Lady Shri Ram College for Women</option>
+                            <option value="Mount Carmel College">Mount Carmel College</option>
+                            <option value="Symbiosis College of Arts and Commerce">Symbiosis College of Arts and
+                                Commerce</option>
+                            <option value="Narsee Monjee College of Commerce and Economics">Narsee Monjee College of
+                                Commerce and Economics</option>
+                            <option value="Sophia College for Women">Sophia College for Women</option>
+                            <option value="Elphinstone College">Elphinstone College</option>
+                            <option value="Ramnarain Ruia College">Ramnarain Ruia College</option>
+                            <option value="Ethiraj College for Women">Ethiraj College for Women</option>
+                            <option value="Stella Maris College">Stella Maris College</option>
+                            <!-- --------------------- -->
+                        </select><br>
+                        <label for="">Distance from college (in m):<span>*</span></label><br>
+                        <input type="number" name="pgdist" id="" value="{{my_obj.distance}}" required><br>
+
+                        <label for="">Address:<span>*</span></label><br>
+                        <textarea name="pgaddress" id="ae_post_pgaddress_id" required>{{my_obj.address}}
+                        </textarea><br>
+
+                        <div class="add_room_sec1_pic_wrap">
+                            <div>
+                                <label for="">Image 1:<span>*</span></label>
+                                <div class="img_input_file_wrap">
+                                    <div class="edit_post_img_sample" id="edit_post_img_sample_id1"
+                                        style="background-image: url('../{{my_obj.image1}}');"></div>
+                                    <input accept="image/*" type="file" name="pgpic1" id="input_pgpic1"
+                                        onchange="check_file_uploaded(this, 'edit_post_img_sample_id1')"
+                                        style="display: none;" >
+                                        <label class="inpu_file_label" for="input_pgpic1">Select file</label>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Image 2:<span>*</span></label>
+                                <div class="img_input_file_wrap">
+                                    <div class="edit_post_img_sample" id="edit_post_img_sample_id2"
+                                        style="background-image: url('../{{my_obj.image2}}');"></div>
+                                    <input accept="image/*" type="file" name="pgpic2" id="input_pgpic2"
+                                        onchange="check_file_uploaded(this, 'edit_post_img_sample_id2')" style="display: none;">
+                                        <label class="inpu_file_label" for="input_pgpic2">Select file</label>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Image 3:<span>*</span></label>
+                                <div class="img_input_file_wrap">
+                                    <div class="edit_post_img_sample" id="edit_post_img_sample_id3"
+                                        style="background-image: url('../{{my_obj.image3}}');"></div>
+                                    <input accept="image/*" type="file" name="pgpic3" id="input_pgpic3"
+                                        onchange="check_file_uploaded(this, 'edit_post_img_sample_id3')" style="display: none;">
+                                        <label class="inpu_file_label" for="input_pgpic3">Select file</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <label for="">Description:<span>*</span></label><br>
+                        <textarea name="pgdis" id="" required>{{my_obj.discription}}</textarea>
+                        <input type="submit" value="Save changes">
+                    </form>
+                </div>
+            </div>
+            <!------------------------SECTION 1 (Ends Here)------------------>
+        </div>
+    </div>
+
+</body>
+<!-------------SCRIPT--------------->
+<script src="{% static 'main.js' %}"></script>
+<!---------------------------------->
+
+</html>

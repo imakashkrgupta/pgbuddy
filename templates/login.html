@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Login</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+    <div class="signin_wrapper login_wrapper">
+        <div class="signin_pic login_pic"></div>
+        <div class="signin_form login_form">
+          <form action="" method="post">
+            {% csrf_token %}
+          <h2>Login</h2>
+          <!-- -------------------MESSAGES SECTION-------------------- -->
+        {% if messages %}
+        <ul class="messages" id="messages_ul_id">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            <i class='bx bx-x' onclick="message_remove()"></i><br>{{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- ------------------------------------------------------------ -->
+          <label>Email:</label>
+          <input type="email" name="l_email" required /><br />
+          <label>Password:</label>
+          <input type="password" name="l_password" required /><br />
+          <input type="submit" value="login" />
+          <p>Don't have an Account? <span><a href="/signup">Signup</a></span></p>
+        </form>
+        </div>
+      </div>
+</body>
+<!-------------SCRIPT--------------->
+<script src="{% static 'main.js' %}"></script>
+<!---------------------------------->
+</html>

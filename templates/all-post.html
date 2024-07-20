@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- <link rel="stylesheet" href="sweetalert2.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Dashboard-All Posts</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+    <div class="dashboard_top_nav">
+        <div class="owner_nav_menu_btn" onclick="owner_nav_btn_clicked()"><i class='bx bx-menu'></i></div>
+    </div>
+    <!------------------>
+    <div class="owner_nav_content_wrapper">
+        <div class="owner_nav" id="owner_nav_id">
+            <a href="/home">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-home-alt-2' ></i>
+                    Home
+                </div>
+            </a>
+            
+            <a href="/dashboard">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-dashboard'></i>
+                    Dashboard
+                </div>
+            </a>
+
+            <a href="/add-post">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-image-add' ></i>
+                    Add Post
+                </div>
+            </a>
+            
+            <a href="/all-post">
+                <div class="owner_nav_link active_owner_nav_link">
+                    <i class='bx bx-border-all' ></i>
+                    All Posts
+                </div>
+            </a>
+
+            <a href="/logout"><div class="owner_nav_link_logout">Logout</div></a>
+        </div>
+
+        <div class="owner_content">
+            <!-- ----------------ALL POSTS------------------------ -->
+            <div class="all_post_heading"><h2>All Posts</h2>
+                <!-- ----------------MESSAGES SECTION------------- -->
+            {% if messages %}
+            <ul class="messages" id="messages_ul_id">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                    <i class='bx bx-x' onclick="message_remove()"></i><br>{{ message }}
+                    </li>
+                    {% endfor %}
+            </ul>
+            {% endif %}
+            <!-- ----------------------------------------------- -->
+            </div>
+            
+            <div class="owner_all_post_wrapper">
+
+
+                <!-- ----------DEFAULT Image (When There is NO POST)------- -->
+                
+                {% if not my_obj%}
+                <div class="all_post_no_post_wrapper">
+                    <div class="all_post_no_post_pic"></div>
+                    <span>No Posts Found</span>
+                </div>
+                {% endif %}
+                
+                <!-- ------------------------------------------------------ -->
+
+
+                <!-- ----------- -->
+                {% for m in my_obj %}
+                <div class="owner_post_card">
+                    <div class="owner_post_card_pic" style='background-image: url("{{m.image1}}");'></div>
+                    <div class="owner_post_card_write">
+                        <span>{{m.name}}</span>
+                        <p><i class='bx bx-map'></i>{{m.college}}</p>
+                        <!-- --------------ACTIVE / DEACTIVE STATUS---------- -->
+                        {% if m.status == 'active' %}
+                        <i class="all_post_card_status_active">Active</i>
+                        {% else %}
+                        <i class="all_post_card_status_deactive">Deactive</i>
+                        {% endif %}
+                        <!-- ------------------------------------------------ -->
+                        <div class="owner_post_card_action_wrap">
+                            <a href="edit-post/{{m.id}}"><i class='bx bx-edit all_post_card_edit_icon'></i></a>
+
+                            
+                            <!-- --------------ACTIVE / DEACTIVE STATUS---------- -->
+                        {% if m.status == 'active' %}
+                        <a href="deactivate-post/{{m.id}}"><i class='bx bx-hide all_post_card_deactivate_icon'></i></a>
+                        {% else %}
+                        <a href="activate-post/{{m.id}}"><i class="material-symbols-outlined all_post_card_activate_icon">Visibility</i></a>
+                        {% endif %}
+                        <!-- ------------------------------------------------ -->
+
+                            <i class='bx bx-checkbox-minus all_post_card_delete_icon' onclick="post_delete_btn_clicked('{{m.id}}')"></i>
+                        </div> 
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- --------------------- -->
+            </div>
+            <!-- ----------------ALL POSTS (End here)-------------- -->
+        </div>
+    </div>
+    
+</body>
+<!-------------SCRIPT--------------->
+<script src="{% static 'main.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!---------------------------------->
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>PG Buddy-Home</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<style>#navlink_a_home{ color: royalblue;}</style>
+<body>
+    
+    <!---------------------------NAVIGATION BAR------------------------->
+    {% include 'nav.html' %}
+    <!------------------------------------------------------------------>
+    <!-----------------------------SEC 1-------------------------------->
+    <div class="home_sec1">
+        <div class="home_sec1_content_wrapper">
+            <div class="home_sec1_write" data-aos="fade-down">
+                Stress less, find your nest. <br>
+                <span>#PGBuddy</span><br>
+                <a href="/search"><button>Find Me a Nest</button></a>
+            </div>
+            <!-- <div class="home_sec1_pic"></div> -->
+        </div>
+    </div>
+    <!------------------------------------------------------------------>
+    <!-- ---------------------ABOUT----------------------- -->
+    <div class="home_about_sec" data-aos="fade-up" id="home_about_sec_id">
+        <h2>About</h2>
+        <p>Welcome to PG Buddy! <br><br>
+
+            Discover your perfect PG accommodation hassle-free with PG Buddy! Simply input your college name and unlock a tailored selection of options. Get comprehensive details like pricing, distance, and direct WhatsApp communication with owners. No more unreliable listings or inaccurate information – PG Buddy streamlines your search, ensuring you find the ideal place within your budget and preferences. Say goodbye to the stress of house-hunting and hello to convenience. Start your journey towards the perfect college life today with PG Buddy as your ultimate companion.
+            
+            </p>
+    </div>
+    <!-- ------------------------------------------------------ -->
+    <!-- --------------------Home MID PIC----------------- -->
+    <div class="home_mid_pic_container" data-aos="fade-up"></div>
+    <!-- ------------------------------------------------- -->
+    <!-----------------------------SEC 2-------------------------------->
+    <div class="home_sec2">
+        <div class="home_sec2_content_wrapper">
+            <h2>Problems We Solve</h2>
+            <div class="home_sec2_subwrap1">
+                <div class="home_sec2_a home_sec2_a1" data-aos="fade-up">
+                    <h3>Scattered Information</h3>
+                    <p>Students often rely on unreliable sources like friends, brokers, or random online listings. Your website can centralize verified information about PGs in a single location.</p>
+                </div>
+
+                <div class="home_sec2_a home_sec2_a2" data-aos="fade-up">
+                    <h3>Limited Transparency</h3>
+                    <p>Details like facilities, rules, and costs might be unclear. Your website can encourage standardized listings with clear descriptions and up-to-date information.</p>
+                </div>
+            </div>
+            <div class="home_sec2_subwrap2">
+                <div class="home_sec2_a home_sec2_a3" data-aos="fade-up">
+                    <h3>Tedious Searching</h3>
+                    <p>Visiting numerous PGs can be time-consuming and overwhelming. Your website allows students to search and filter options based on preferences, saving them valuable time.</p>
+                </div>
+                <div class="home_sec2_a home_sec2_a4" data-aos="fade-up">
+                    <h3>Physical Visits</h3>
+                    <p>Students might need to visit multiple locations, wasting time and energy. Virtual tours or detailed listings on your website can reduce the need for unnecessary visits.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------>
+    <!---------------------------FOOTER--------------------------------->
+    <footer>
+        made with ❤️ by a <a href="https://akashkumargupta.com" target="_blank">Student</a>  for the Students! <br>
+        <span>#PGBuddy</span>
+    </footer>
+    <!------------------------------------------------------------------>
+</body>
+<!-------------SCRIPT--------------->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+<script src="{% static 'main.js' %}"></script>
+<!---------------------------------->
+</html>

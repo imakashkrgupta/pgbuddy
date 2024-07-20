@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Search</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+
+<body class="search_page_body">
+    <!---------------------------NAVIGATION BAR------------------------->
+    {% include 'nav.html' %}
+    <!------------------------------------------------------------------>
+    <!------------------SECTION 1-------------------->
+    <div class="search_sec1">
+        <form action="/search-data" method="get">
+            {% csrf_token %}
+            <div class="search_searchbar_wrapper">
+                <div class="search_input_speech_wrapper">
+                    <input type="search" name="q" id="search_input_id" placeholder="search your college to find the nearest PGs">
+                    <div class="search_speech_btn" onclick="speechrecog()">
+                        <i class='bx bx-microphone' id="search_mic_id"></i>
+                        <!-- <i class='bx bx-dots-horizontal-rounded' id="search_listening_id"></i> -->
+                        <i class='bx bx-dots-horizontal-rounded bx-flashing' id="search_listening_id"></i>
+                    </div>
+                </div>
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <!----------------------------------------------->
+    <!------------------SECTION 2-------------------->
+    <div class="search_sec2">
+        <div class="search_sec2_wrapper">
+            <div class="search_sec2_results">
+
+                <!----------------SEARCH RESULT (USING PYTHON)----------->
+                {% for p in pg_dta %}
+                <div class="search_result" data-aos="fade-up">
+                    <div class="search_result_pic" style='background-image: url("{{p.image1}} ");'></div>
+                    <div class="search_result_write">
+                        <h3>{{p.name}}</h3>
+                        <span><i class='bx bx-map'></i>{{p.college}}</span><br><br>
+                        Price: {{p.price}} Rs <br>
+                        Esimate dist: {{p.distance}}m from college<br>
+                        {% if p.pgfor == 'girl' %}
+                        <div class="gender_tag gender_tag_girl">Girls</div>
+                        {% elif p.pgfor == 'boy' %}
+                        <div class="gender_tag gender_tag_boy">Boys</div>
+                        {% else %}
+                        <div class="gender_tag gender_tag_boy-girl">Boys / Girls</div>
+                        {% endif %}
+                        <a href="result/{{p.id}}"><button>view details</button></a>
+                    </div>
+                </div>
+                {% endfor %}
+                <!--------Default Bg in Seach PAGE when there is NO DATA------->
+                {% if pg_dta %}
+
+                {% elif not pg_dta and context_query == 2 %}
+                <div class="search_search_img_wrapper">
+                    <div class="search_no_result_img_default"></div>
+                    <!-- <span>No Results Found!</span> -->
+                </div>
+
+                {% elif not pg_dta and context_query != 1 %}
+                <div class="search_search_img_wrapper">
+                    <div class="search_search_img_default"></div>
+                    <span>Lets Find a Nest For You!</span>
+                </div>
+
+                {% elif not pg_dta and context_query == 1 %}
+                <div class="search_search_img_wrapper">
+                    <div class="search_no_filter_result_img_default"></div>
+                    <!-- <span>No Filtered Results Found!</span> -->
+                </div>
+
+                    
+
+                {% endif %}
+
+            </div>
+            <!--------------------controls----------------->
+            {% if pg_dta or context_query == 1 %}
+                
+            <div class="search_sec2_controls">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="search_sec2_controls_sub_wrapper">
+                    <div class="filter_wrapper">
+                        <h3>Filter Results</h3>
+                        <label for="price_range">Price within:</label>
+                        <span>0 -</span>
+                        <span id="price_range_output_id">{% if filter_price_q < 10000 %}{{filter_price_q}} Rs{% else %}10000 Rs+{% endif %}</span><br>
+                        <input value="{% if filter_price %}{{filter_price}}{% else %}10{% endif %}" type="range" min="1" max="10" name="price_input" id="price_range"
+                            oninput="price_range_input()"><br>
+
+                        <label for="distance_range">Distance within: </label>
+                        <span>0 -</span>
+                        <span id="distance_range_output_id">{% if filter_distance_q < 1000 %}{{filter_distance_q}} m{% else %}1000 m+{% endif %}</span><br>
+                        <input value="{% if filter_distance %}{{filter_distance}}{% else %}10{% endif %}" type="range" min="1" max="10" name="distance_input" id="distance_range"
+                            oninput="distance_range_input()"><br> <br>
+
+                    </div>
+
+                    <div class="sort_wrapper">
+                        <b>Sort By</b><br>
+                        <label for="">Distance</label>
+                        {% if sorting == 's_dist' %}
+                        <input type="radio" value="s_dist" name="sort" id="" checked>
+                        {% else %}
+                        <input type="radio" value="s_dist" name="sort" id="">
+                        {% endif %}
+
+                        <label for="">Price</label>
+                        {% if sorting == 's_price' %}
+                        <input type="radio" value="s_price" name="sort" id="" checked>
+                        {% else %}
+                        <input type="radio" value="s_price" name="sort" id="">
+                        {% endif %}
+                        
+                        <label for="">None</label>
+                        {% if sorting == 'no_sort' %}
+                        <input type="radio" value="no_sort" name="sort" id="" checked>
+                        {% else %}
+                        <input type="radio" value="no_sort" name="sort" id="" >
+                        {% endif %}
+
+                        <!-- ----------Gender Sort--------- -->
+                        <!-- <br>
+                        <hr>
+                        <label for="">Boys</label>
+                        <input type="radio" value="boy" name="sort_pgfor" id="">
+                        <label for="">Girls</label>
+                        <input type="radio" value="girl" name="sort_pgfor" id="">
+                        <label for="">Both</label>
+                        <input type="radio" value="both" name="sort_pgfor" id=""> -->
+                        <!-- ------------------------------ -->
+                    </div>
+                </div>
+                <input type="submit" value="Apply">
+                </form>
+            </div>
+            {% endif %}
+            <!---------------------------------------------->
+        </div>
+    </div>
+    <!-- --------------VOICE SEARCH BTN SOUND-------------- -->
+     <!-- Audio element for the sound -->
+    <audio id="clickSound">
+        <source src="../static/audio/voice_search_btn.mp3" type="audio/mpeg">
+        <!-- Include additional sources for different browsers if needed -->
+        Your browser does not support the audio element.
+    </audio>
+     <!-- ----------------------------------------------- -->
+</body>
+<!-------------SCRIPT--------------->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+<script src="{% static 'main.js' %}"></script>
+<!---------------------------------->
+
+</html>

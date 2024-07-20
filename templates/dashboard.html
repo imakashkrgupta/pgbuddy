@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Dashboard</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+<body>
+    <div class="dashboard_top_nav">
+        <div class="owner_nav_menu_btn" onclick="owner_nav_btn_clicked()"><i class='bx bx-menu'></i></div>
+    </div>
+    <!------------------>
+    <div class="owner_nav_content_wrapper">
+        <div class="owner_nav" id="owner_nav_id">
+            <a href="/home">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-home-alt-2' ></i>
+                    Home
+                </div>
+            </a>
+
+            <a href="/dashboard">
+                <div class="owner_nav_link active_owner_nav_link">
+                    <i class='bx bxs-dashboard'></i> 
+                    Dashboard
+                </div>
+            </a>
+
+            <a href="/add-post">
+                <div class="owner_nav_link">
+                    <i class='bx bxs-image-add' ></i>
+                    Add Post
+                </div>
+            </a>
+            
+            <a href="/all-post">
+                <div class="owner_nav_link">
+                    <i class='bx bx-border-all' ></i>
+                    All Posts
+                </div>
+            </a>
+
+            <a href="/logout"><div class="owner_nav_link_logout">Logout</div></a>
+        </div>
+
+        <div class="owner_content">
+            <!----------------------Dasboard------------------------>
+    <div class="owner_dashboard_content_sec1">
+        <div class="owner_dashboard_content_wrapper">
+            <h2>Dashboard</h2><br>
+            <!-- -------------------MESSAGES SECTION-------------------- -->
+        {% if messages %}
+        <ul class="messages" id="messages_ul_id">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            <i class='bx bx-x' onclick="message_remove()"></i><br>{{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- ------------------------------------------------------------ -->
+            <!--------------------->
+            <div class="owner_dashboard_content_a">
+                <div class="owner_dashboard_content_a1">
+                    <div class="owner_dashboard_pic">{{name_first_letter}}</div>
+                    <!-- <div class="owner_dashboard_details"></div> -->
+                    <span>{{myobj.user_name}}</span>
+                </div>
+                <div class="owner_dashboard_content_a2">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                    <label for="">Name:</label><br>
+                    <input type="text" name="user_det_name" id="" class="owner_details_edit_input" placeholder="" value="{{myobj.user_name}}" readonly> <br>
+                    <label for="">Phone:</label><br>
+                    <input type="number" name="user_det_phone" id="" class="owner_details_edit_input" placeholder="" value="{{myobj.user_phone}}" readonly><br>
+                    <label for="">Email:</label><br>
+                    <!-- <input type="email" name="" id="" placeholder=""><br> -->
+                    <div class="dashboard_user_details_email">{{myobj.user_email}}</div>
+                    <div class="dashboard_user_details_make_changes_wrap">
+                        <i class='bx bxs-edit' onclick="owner_detail_edit()"
+                        id="owner_detail_edit_btn_id"></i>
+                        <button type="submit" id="owner_detail_save_btn_id">Save Changes</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            <!--------------------->
+            <div class="owner_dashboard_content_b">
+                <div class="owner_dashboard_content_b1 owner_subcontent_b">
+                    <span>{{total_post_count}}</span>Total Posts
+                </div>
+                <div class="owner_dashboard_content_b2 owner_subcontent_b">
+                    <span>{{active_post_count}}</span>Active Posts
+                </div>
+                <div class="owner_dashboard_content_b3 owner_subcontent_b">
+                    <span>{{deactive_post_count}}</span>Deactive Posts
+                </div>
+            </div>
+            <!--------------------->
+        </div>
+    </div>
+    <!---------------------Dashboard (Ends here)----------------------->
+        </div>
+    </div>
+    
+</body>
+<!-------------SCRIPT--------------->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+
+<script src="{% static 'main.js' %}"></script>
+<!---------------------------------->
+</html>

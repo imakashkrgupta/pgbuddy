@@ -1,0 +1,20 @@
+<!---------------------------NAVIGATION BAR------------------------->
+<nav class="navbar">
+    <div class="navlogo" id="navlogo_id">PG Buddy</div>
+    <div class="navlinks" id="navlinks_id">
+        <div class="navlink"><a class="navlink_a" id="navlink_a_home" href="/home">Home</a></div>
+        <div class="navlink"><a class="navlink_a" id="navlink_a_dashboard" href="/dashboard">Dashboard</a></div>
+        
+        {% if 'loggedin_email' in request.session %}
+        <!-- user is logged in. -->
+        <a href="/logout"><button id="navlink_logout_btn">Logout</button></a>
+        {% else  %}
+        <!-- not logged in -->
+        <a href="/login"><button id="navlink_login_btn">Login</button></a>
+        {% endif %}
+        
+    </div>
+    <a href="/search"><div class="search_bar" id="search_bar_id"></div></a>
+    <div class="nav_menu_btn" onclick="nav_menu_clicked()"></div>
+</nav>
+<!------------------------------------------------------------------>

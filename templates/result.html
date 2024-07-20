@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Result</title>
+    <!-- Link to your favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+</head>
+
+<body>
+
+    <!---------------------------NAVIGATION BAR------------------------->
+    {% include 'nav.html' %}
+    <!------------------------------------------------------------------>
+    <!------------------------SECTION 1--------------------------------->
+    <div class="result_sec1">
+        <div class="result_sec1_wrapper">
+
+
+            <div class="image_slider_wrapper">
+                <div class="slider_img" id="slider_img1" style='background-image: url("../{{myobj.image1}}");'></div>
+                <div class="slider_img" id="slider_img2" style="background-image: url('../{{myobj.image2}}');"></div>
+                <div class="slider_img" id="slider_img3" style="background-image: url('../{{myobj.image3}}');"></div>
+            </div>
+            <div class="image_slider_controller">
+                <i class='bx bxs-chevron-left-circle' onclick="left_slider_img()"></i>
+                <i class='bx bxs-chevron-right-circle' onclick="right_slider_img()"></i>
+            </div>
+
+
+            <br>
+            <h2>{{myobj.name}}</h2>
+            <span class="clg_span"><i class='bx bx-been-here'></i>{{myobj.college}}</span>
+            <br><br>
+            <span>Price: </span>{{myobj.price}}Rs
+            <br>
+            <span>Distance from college: </span>{{myobj.distance}}m
+            <br>
+            <span>Address: </span>{{myobj.address}}
+            <br>
+            {% if myobj.pgfor == 'girl' %}
+            <div class="gender_tag gender_tag_girl">Girls</div>
+            {% elif myobj.pgfor == 'boy' %}
+            <div class="gender_tag gender_tag_boy">Boys</div>
+            {% else %}
+            <div class="gender_tag gender_tag_boy-girl">Boys / Girls</div>
+            {% endif %}
+            <br><br>
+            <!-- Paragraph -->
+            <p>{{myobj.discription}}</p>
+            <br>
+            <a href='https://wa.me/{{myobj.phone}}/' target="_blank"><button><i class='bx bxl-whatsapp'></i>
+                    Contact</button></a>
+        </div>
+    </div>
+    <!------------------------------------------------------------------>
+
+</body>
+<!-------------SCRIPT--------------->
+<script src="{% static 'main.js' %}"></script>
+<!---------------------------------->
+
+</html>
