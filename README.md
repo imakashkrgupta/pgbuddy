@@ -18,4 +18,4 @@ Discover your perfect PG accommodation hassle-free with PG Buddy!
 
 
 ## 👓 Preview
-<img src= "https://github.com/user-attachments/assets/b410d6b7-58c3-40b3-bd70-4d88464a0c54" width = "75%">
+<img src= "https://github.com/user-attachments/assets/0bb30a87-00d9-44d2-8038-c264bdb795a6" width = "75%">
